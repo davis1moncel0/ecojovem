@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoJovem</title>
     <style>
-        * {
+ * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -61,7 +61,7 @@
             align-items: center;
             flex-direction: column;
             height: 90vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/sua-imagem.jpg') no-repeat center center/cover;
+           background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./assets/sua-imagem.jpg') no-repeat center center/cover;
             color: white;
             text-align: center;
             position: relative;
@@ -212,9 +212,84 @@
                 transform: translateY(0);
             }
         }
+        .carousel {
+    margin: 50px 0;
+    text-align: center;
+    position: relative;
+}
 
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+.swiper-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Ajuste do tamanho das imagens */
+.swiper-slide {
+    width: 60%; /* Imagens laterais ocupam 60% da largura */
+    transform: scale(0.9); /* Encolhe as imagens laterais */
+    transition: transform 0.3s ease;
+}
+
+/* Imagem central fica maior */
+.swiper-slide-active {
+    width: 80%; /* Aumenta a imagem central */
+    transform: scale(1); /* Deixa a imagem central no tamanho original */
+}
+
+/* Estilo das setas (arrows) */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff; /* Cor branca */
+    font-size: 1.5rem; /* Tamanho pequeno */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%);
+    z-index: 10; /* Aparecem acima do carrossel */
+    transition: color 0.3s ease;
+    padding: 0 20px; /* Adiciona mais espaço nas setas */
+}
+
+/* Mudança de cor ao passar o mouse */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: #0bc780; /* Cor ao passar o mouse */
+}
+
+/* Ajuste da posição das setas */
+.swiper-button-next {
+    right: 10px; /* Ajusta a posição da seta direita */
+}
+
+.swiper-button-prev {
+    left: 10px; /* Ajusta a posição da seta esquerda */
+}
+
+@media (max-width: 768px) {
+    .swiper-container {
+        max-width: 100%;
+    }
+
+    /* Exibe 1 imagem por vez em telas menores */
+    .swiper-container .swiper-slide {
+        width: 100%;
+    }
+}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 </head>
 <body>
     <header>
@@ -260,6 +335,28 @@
         </div>
     </section>
 
+    <section class="carousel">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- Imagem 1 -->
+                <div class="swiper-slide">
+                    <img src="/assets/1.jpg" alt="Imagem 1">
+                </div>
+                <!-- Imagem 2 -->
+                <div class="swiper-slide">
+                    <img src="/assets/2.jpg" alt="Imagem 2">
+                </div>
+                <!-- Imagem 3 -->
+                <div class="swiper-slide">
+                    <img src="/assets/3.jpg" alt="Imagem 3">
+                </div>
+            </div>
+            <!-- Botões de navegação -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>      
+
     <footer>
         <p>&copy; 2024 EcoJovem. Todos os direitos reservados.</p>
     </footer>
@@ -280,6 +377,23 @@
         backToTopButton.addEventListener("click", function() {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
+        
+        const swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3, // Mostra 3 imagens por vez
+        spaceBetween: 10, // Espaço entre as imagens
+        loop: true, // Faz o carrossel ser contínuo
+        centeredSlides: true, // Garante que a imagem central fique em destaque
+        autoplay: {
+            delay: 5000, // Alterna automaticamente a cada 5 segundos
+            disableOnInteraction: false,
+        },
+        initialSlide: 2, // Começa no slide de índice 2 (Imagem 3)
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
     </script>
+    
 </body>
 </html>
